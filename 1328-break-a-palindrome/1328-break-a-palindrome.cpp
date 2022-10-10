@@ -48,10 +48,12 @@ public:
                 return palindrome;
             }
         }
-       char ch=palindrome[n-1];
-        ch++;
-        palindrome[n-1]=ch;
-        return palindrome;
+       // char ch=palindrome[n-1];
+       //  ch++;
+       //  palindrome[n-1]=ch;
+       //  return palindrome;
+        palindrome[n-1]='b';
+             return palindrome;
         
     }
 };
