@@ -21,34 +21,20 @@
  */
 class Solution {
 public:
-    
-    TreeNode* bstTree(vector<int> &v,int start,int end){
-        
-        if(start > end){
-            return NULL;
-        }
-        
-        int mid = (start + end)/2;
-        TreeNode* root = new TreeNode(v[mid]);
-        
-        root -> left = bstTree(v,start,mid-1);
-        
-        root -> right = bstTree(v,mid+1,end);
-        
-        return root;
-    }
     TreeNode* sortedListToBST(ListNode* head) {
-        vector<int> v;
-        while(head != NULL){
-            v.push_back(head->val);
-            cout<<head->val<<" ";
-            head = head -> next;
-        }
-        
-        int n = v.size();
-        
-        TreeNode* root = bstTree(v,0,n-1);
-        
-        return root;
+    if (!head) return nullptr;
+    if (!head->next) return new TreeNode(head->val);
+    auto fast = head->next, slow = head;
+    while (fast->next && fast->next->next) {
+        fast = fast->next->next;
+        slow = slow->next;
     }
+    
+    auto mid = slow->next;
+    slow->next = nullptr;
+    auto root = new TreeNode(mid->val);
+    root->left = sortedListToBST(head);
+    root->right = sortedListToBST(mid->next);
+    return root;
+ }
 };
