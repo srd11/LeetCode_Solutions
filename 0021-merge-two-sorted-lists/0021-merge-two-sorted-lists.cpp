@@ -10,55 +10,24 @@
  */
 class Solution {
 public:
-    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-        // ListNode* ans = NULL;
-        // while((!list1) && (!list2)){
-        //     if(list1 -> val > list2 -> val){
-        //         ans -> next = list2;
-        //         list2 = list2 -> next;
-        //     }
-        //     else{
-        //         ans -> next = list1;
-        //         list1 = list1 -> next;
-        //     }
-        // }
-        // return ans;
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
         
-        if(list1 == NULL)
-            return list2;
+        if(l1 ==  NULL)
+            return l2;
         
-        if(list2 == NULL)
-            return list1;
+        if(l2 == NULL)
+            return l1;
         
-        ListNode* tmp = list1;
-        
-        if(list1 -> val > list2 -> val){
-            tmp = list2;
-            list2 = list2 -> next;
-        }
-        else
-            list1 = list1 -> next;
-        
-        
-        ListNode* ans = tmp;
-        while(list1 && list2){
-            
-            if(list1 ->  val > list2 ->  val){
-                ans -> next = list2;
-                list2 = list2 -> next;
-            }
-            else{
-                ans -> next = list1;
-                list1 = list1 -> next;
-            }
-            ans = ans -> next;
-        }
-        
-        if(!list1)
-            ans -> next = list2;
-        else
-            ans -> next = list1;
-        
-        return tmp;
+        if(l1 -> val <= l2 -> val)
+        {
+			l1 -> next = mergeTwoLists(l1 -> next, l2);
+			return l1;
+		}
+		// we will call recursive l1 whole list and l2 -> next
+		else
+        {
+			l2 -> next = mergeTwoLists(l1, l2 -> next);
+			return l2;            
+		}
     }
 };
