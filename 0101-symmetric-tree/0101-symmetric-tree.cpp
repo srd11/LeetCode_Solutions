@@ -12,34 +12,23 @@
 class Solution {
 public:
     bool isSymmetric(TreeNode* root) {
-        
-        TreeNode *l,*r;
-        if(!root)
+        if(root == NULL)
             return true;
         
-        queue<TreeNode*> q1,q2;
-        q1.push(root -> left);
-        q2.push(root->right);
+        return symmetricTest(root->left, root->right);
+    }
+    
+    bool symmetricTest(TreeNode* l, TreeNode* r){
+        if(l == NULL && r == NULL)
+            return true;
+        else if(l == NULL || r == NULL)
+            return false;
+        else if(l->val != r->val)
+            return false;
         
-        while(!q1.empty() && !q2.empty()){
-            l=q1.front();
-            r=q2.front();
-            q1.pop();
-            q2.pop();
+        return symmetricTest(l->left, r->right) && symmetricTest(l->right, r->left);
             
-            if(l == NULL && r == NULL )
-                continue;
-            
-            if (NULL == l || NULL == r)
-                return false;
-            if (l->val != r->val)
-                return false;
-            
-            q1.push(l -> left);
-            q1.push(l -> right);
-            q2.push(r -> right);
-            q2.push(r -> left);
-        }
-        return true;
     }
 };
+
+
