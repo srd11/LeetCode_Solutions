@@ -12,13 +12,11 @@ using namespace std;
 */
 int findFrequency(vector<int> v, int x){
     // Your code here
-    int ans=0;
-    int n = v.size();
-    for(int i=0;i<n;i++){
-        if(v[i] == x)
-            ans++;
-    }
-    return ans;
+    map<int,int> mp;
+    for(auto i : v)
+        mp[i]++;
+        
+    return mp[x];
 }
 
 //{ Driver Code Starts.
