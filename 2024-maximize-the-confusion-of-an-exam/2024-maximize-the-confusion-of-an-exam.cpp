@@ -1,15 +1,30 @@
 class Solution {
 public:
     int maxConsecutiveAnswers(string s, int k) {
-        int res = 0, maxf = 0;
-        unordered_map<int, int> count;
-        for (int i = 0; i < s.length(); ++i) {
-            maxf = max(maxf, ++count[s[i]]);
-            if (res - maxf < k)
-                res++;
-            else
-                count[s[i - res]]--;
+                int size=s.size(),left=0,res=0,cnt=0;
+      //  maximum substring of 'T' which contains k 'F'
+        for(int i=0;i<size;i++){
+            if(s[i]=='F')
+                cnt++;
+            while(cnt>k){
+                if(s[left]=='F')
+                    cnt--;
+                left++;
+            }
+            res=max(i-left+1,res);
         }
-        return res;
+    //maximum  substring of 'F' which contains k 'T'
+      cnt=0;left=0;
+      for(int i=0;i<size;i++){
+            if(s[i]=='T')
+                cnt++;
+            while(cnt>k){
+                if(s[left]=='T')
+                    cnt--;
+                left++;
+            }
+            res=max(i-left+1,res);
+        }
+        return res;       
     }
 };
