@@ -11,23 +11,29 @@
  */
 class Solution {
 public:
-   int minDepth(TreeNode* root) {
-    if (root == NULL) return 0;
-    queue<TreeNode*> Q;
-    Q.push(root);
-    int i = 0;
-    while (!Q.empty()) {
-        i++;
-        int k = Q.size();
-        for (int j=0; j<k; j++) {
-            TreeNode* rt = Q.front();
-            if (rt->left) Q.push(rt->left);
-            if (rt->right) Q.push(rt->right);
-            Q.pop();
-            if (rt->left==NULL && rt->right==NULL) return i;
-        }
+    
+    int minDepth(TreeNode* root) {
+         if (root == nullptr) {
+        return 0;
     }
-    return -1; //For the compiler thing. The code never runs here.
-}
-
+    
+    // If the current node is a leaf, return 1
+    if (root->left == nullptr && root->right == nullptr) {
+        return 1;
+    }
+    
+    // If the current node has only one child, return the minimum depth of that child subtree
+    if (root->left == nullptr) {
+        return minDepth(root->right) + 1;
+    }
+    if (root->right == nullptr) {
+        return minDepth(root->left) + 1;
+    }
+    
+    // If the current node has both left and right children, return the minimum depth
+    // of the subtree with the smaller depth
+    int leftDepth = minDepth(root->left);
+    int rightDepth = minDepth(root->right);
+    return std::min(leftDepth, rightDepth) + 1;
+    }
 };
